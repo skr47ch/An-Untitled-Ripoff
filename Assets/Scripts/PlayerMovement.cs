@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 	public Rigidbody2D playerRigidBody;
 	public Transform checkGround;
 	public LayerMask whatIsGround;
+	public bool isSpinoff = false;
 
 	public float maxSpeed = 5f;
 	public float groundRadius = 0.1f;
