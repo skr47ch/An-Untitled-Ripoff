@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - ExchangePoints
+  - BlueGround
+  - RedGround
   layers:
   - Default
   - TransparentFX
