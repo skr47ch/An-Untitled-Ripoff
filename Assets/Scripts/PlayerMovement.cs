@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float maxSpeed = 5f;
 	public float groundRadius = 0.1f;
 	public float jumpForce = 500f;
-	public float dieForce = 500f;
+//	public float dieForce = 500f;
 
 	bool isFacingRight = true;
 	bool isGrounded = false;
@@ -72,8 +72,8 @@ public class PlayerMovement : MonoBehaviour {
 //	}
 //
 	void CheckJump() {
-		if(health == 0) return;
-
+//		if(health == 0) return;
+		Debug.Log(isGrounded);
 		if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))){
 			Debug.Log("Jumping");
 //			anim.SetBool ("isGrounded", false);
