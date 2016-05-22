@@ -19,6 +19,9 @@ public class CameraMovement : MonoBehaviour {
 			Vector3 delta = target.position - cameraFollow.ViewportToWorldPoint(new Vector3(xOffset, yOffset, point.z)); //(new Vector3(0.5, 0.5, point.z));
 			Vector3 destination = transform.position + delta;
 			transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
+			Vector3 temp = transform.position;
+			temp.y = 1;
+			transform.position = temp;
 		}
 
 	}
