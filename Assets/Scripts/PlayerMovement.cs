@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float maxSpeed = 5f;
 	public float groundRadius = 0.1f;
 	public float jumpForce = 500f;
-	private int ExchangePoints = 0;
+	public int ExchangePoints = 0;
 	private bool GroundColor = false;   //0->Blue, 1->Red
 
 	bool isGrounded = false;
