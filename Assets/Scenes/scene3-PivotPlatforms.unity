@@ -620,11 +620,11 @@ HingeJoint2D:
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 6.67, y: 3.92}
-  m_UseMotor: 0
+  m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: 0
+    m_MotorSpeed: 8
     m_MaximumMotorForce: 10000
-  m_UseLimits: 1
+  m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: -35
     m_UpperAngle: 35
@@ -1117,7 +1117,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2143979695}
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -1205,7 +1205,7 @@ MonoBehaviour:
   isSpinoff: 0
   maxSpeed: 10
   groundRadius: 0.1
-  jumpForce: 300
+  jumpForce: 50
   ExchangePoints: 4
 --- !u!58 &2143979702
 CircleCollider2D:

@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void CheckJump() {
 //		Debug.Log(isGrounded);
-		if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))){
+		if (isGrounded && Input.GetButton("Jump")){
 //			Debug.Log("Jumping");
 			playerRigidBody.AddForce(new Vector2(0, jumpForce));
 		}
