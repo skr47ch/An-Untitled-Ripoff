@@ -10,15 +10,20 @@ public class PlayerMovement : MonoBehaviour {
 
 	public float maxSpeed = 5f;
 	public float groundRadius = 0.1f;
-	public float jumpForce = 500f;
+//	public float jumpForce = 500f;
 	public int ExchangePoints = 0;
 	private bool GroundColor = false;   //0->Blue, 1->Red
 
 	bool isGrounded = false;
 
+	public float jumpHeight;
+	private float jumpSpeed;
+	Vector2 velocity;
+
 	void Start() {
 		//playerRigidBody = GetComponent<Rigidbody2D> ();
 		//transform = GetComponent<Transform> ();
+		jumpSpeed = Mathf.Sqrt(-2 * Physics.gravity.y * jumpHeight) + 0.1f;
 	}
 
 	void FixedUpdate() {
@@ -39,9 +44,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	void CheckJump() {
 //		Debug.Log(isGrounded);
-		if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))){
+		if (isGrounded && Input.GetButton("Jump")){
+			velocity = playerRigidBody.velocity;
+			velocity.y = jumpSpeed;
+			playerRigidBody.velocity = velocity;
 //			Debug.Log("Jumping");
-			playerRigidBody.AddForce(new Vector2(0, jumpForce));
+//			playerRigidBody.AddForce(new Vector2(0, jumpForce));
 		}
 	}
 
