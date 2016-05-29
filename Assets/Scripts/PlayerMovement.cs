@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask whatIsGround;
 	public bool isSpinoff = false;
 
+	public Camera cameraM;
 	public float maxSpeed = 5f;
 	public float groundRadius = 0.1f;
 //	public float jumpForce = 500f;
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour {
 	private float jumpSpeed;
 	Vector2 velocity;
 
+	private Vector3 newCameraPosition;
+	private Bounds camerabound;
+
 	void Start() {
 		//playerRigidBody = GetComponent<Rigidbody2D> ();
 		//transform = GetComponent<Transform> ();
@@ -31,8 +35,16 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update() {
+		camerabound = CameraExtensions.OrthographicBounds(cameraM);
+		 
+		if(playerRigidBody.position.x > camerabound.max.x) 	MoveCamera(camerabound.size.x, 0);
+		if(playerRigidBody.position.x < camerabound.min.x) 	MoveCamera(-camerabound.size.x, 0);
+		if(playerRigidBody.position.y > camerabound.max.y) 	MoveCamera(0, camerabound.size.y);
+		if(playerRigidBody.position.y < camerabound.min.y) 	MoveCamera(0, -camerabound.size.y);
+
+
 		if(ExchangePoints < 0) 	Dead();
-		if(this.gameObject) Debug.Log(ExchangePoints);
+//		if(this.gameObject) Debug.Log(ExchangePoints);
 		CheckJump();
 	}
 
@@ -78,5 +90,14 @@ public class PlayerMovement : MonoBehaviour {
 	void Dead() {
 		Debug.Log("You Ded");
 		Destroy(this.gameObject);
+	}
+
+	void MoveCamera(float xBound, float yBound) {
+		newCameraPosition = cameraM.transform.position;
+
+		newCameraPosition.x = cameraM.transform.position.x + xBound;
+		newCameraPosition.y = cameraM.transform.position.y + yBound;
+
+		cameraM.transform.position = newCameraPosition;
 	}
 }
