@@ -96,7 +96,7 @@ GameObject:
   - 33: {fileID: 297386929}
   - 23: {fileID: 297386928}
   - 61: {fileID: 297386927}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - 33: {fileID: 313523710}
   - 23: {fileID: 313523709}
   - 61: {fileID: 313523708}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - 33: {fileID: 375195264}
   - 23: {fileID: 375195263}
   - 61: {fileID: 375195262}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (13)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - 33: {fileID: 428902521}
   - 23: {fileID: 428902520}
   - 61: {fileID: 428902519}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   - 33: {fileID: 443336788}
   - 23: {fileID: 443336787}
   - 61: {fileID: 443336786}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -558,7 +558,7 @@ GameObject:
   - 33: {fileID: 632711038}
   - 23: {fileID: 632711037}
   - 61: {fileID: 632711036}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -717,19 +717,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 644176130}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba685b6dc64ef4448a5ceb6291b7a74a, type: 3}
+  m_Script: {fileID: 11500000, guid: e5053cf46104c7443b987add89176a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xdampTime: 0.35
-  ydampTime: 0.05
-  target: {fileID: 2143979699}
-  cameraFollow: {fileID: 644176134}
-  xOffset: 0.5
-  yOffset: 0.4
-  yMovement: 0
-  VerticalCameraOffset: 3
+  player: {fileID: 2143979699}
 --- !u!1 &667478851
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +734,7 @@ GameObject:
   - 33: {fileID: 667478855}
   - 23: {fileID: 667478854}
   - 61: {fileID: 667478853}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -818,7 +811,7 @@ GameObject:
   - 33: {fileID: 708357991}
   - 23: {fileID: 708357990}
   - 61: {fileID: 708357989}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -895,7 +888,7 @@ GameObject:
   - 33: {fileID: 838436712}
   - 23: {fileID: 838436711}
   - 61: {fileID: 838436710}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -972,7 +965,7 @@ GameObject:
   - 33: {fileID: 842702087}
   - 23: {fileID: 842702086}
   - 61: {fileID: 842702085}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1049,7 +1042,7 @@ GameObject:
   - 33: {fileID: 859594772}
   - 23: {fileID: 859594771}
   - 61: {fileID: 859594770}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1200,7 +1193,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 947594227}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1230,7 +1223,7 @@ GameObject:
   - 33: {fileID: 1050640908}
   - 23: {fileID: 1050640907}
   - 61: {fileID: 1050640906}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1307,7 +1300,7 @@ GameObject:
   - 33: {fileID: 1243166614}
   - 23: {fileID: 1243166613}
   - 61: {fileID: 1243166612}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1384,7 +1377,7 @@ GameObject:
   - 33: {fileID: 1298246858}
   - 23: {fileID: 1298246857}
   - 61: {fileID: 1298246856}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1488,7 +1481,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1353028339}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1529,7 +1522,7 @@ GameObject:
   - 33: {fileID: 1412831935}
   - 23: {fileID: 1412831934}
   - 61: {fileID: 1412831933}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (12)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1634,7 +1627,7 @@ GameObject:
   - 33: {fileID: 1502112915}
   - 23: {fileID: 1502112914}
   - 61: {fileID: 1502112913}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (11)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1711,7 +1704,7 @@ GameObject:
   - 33: {fileID: 1576202046}
   - 23: {fileID: 1576202045}
   - 61: {fileID: 1576202044}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (9)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1788,7 +1781,7 @@ GameObject:
   - 33: {fileID: 1578683295}
   - 23: {fileID: 1578683294}
   - 61: {fileID: 1578683293}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1865,7 +1858,7 @@ GameObject:
   - 33: {fileID: 1677080102}
   - 23: {fileID: 1677080101}
   - 61: {fileID: 1677080100}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2019,7 +2012,7 @@ GameObject:
   - 33: {fileID: 1692222414}
   - 23: {fileID: 1692222413}
   - 61: {fileID: 1692222412}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2096,7 +2089,7 @@ GameObject:
   - 33: {fileID: 1829461971}
   - 23: {fileID: 1829461970}
   - 61: {fileID: 1829461969}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2173,7 +2166,7 @@ GameObject:
   - 33: {fileID: 1848181965}
   - 23: {fileID: 1848181964}
   - 61: {fileID: 1848181963}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (10)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2327,7 +2320,7 @@ GameObject:
   - 33: {fileID: 1969063152}
   - 23: {fileID: 1969063151}
   - 61: {fileID: 1969063150}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2404,7 +2397,7 @@ GameObject:
   - 33: {fileID: 1984332231}
   - 23: {fileID: 1984332230}
   - 61: {fileID: 1984332229}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (6)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2481,7 +2474,7 @@ GameObject:
   - 33: {fileID: 2010150121}
   - 23: {fileID: 2010150120}
   - 61: {fileID: 2010150119}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Tree (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2555,9 +2548,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2041808051}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2598,33 +2591,36 @@ GameObject:
   - 4: {fileID: 2143979699}
   - 33: {fileID: 2143979698}
   - 23: {fileID: 2143979697}
-  - 50: {fileID: 2143979696}
   - 61: {fileID: 2143979700}
   - 114: {fileID: 2143979701}
-  m_Layer: 0
+  - 114: {fileID: 2143979696}
+  m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &2143979696
-Rigidbody2D:
-  serializedVersion: 2
+--- !u!114 &2143979696
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2143979695}
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe51962a404f28a449229349fed2b5a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxJumpHeight: 1
+  minJumpHeight: 1
+  timeToJumpApex: 0.4
+  moveSpeed: 3
+  wallJumpClimb: {x: 0, y: 0}
+  wallJumpOff: {x: 0, y: 0}
+  wallLeap: {x: 0, y: 0}
+  wallSlideSpeedMax: 3
+  wallStickTime: 0.25
 --- !u!23 &2143979697
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2665,8 +2661,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2143979695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.14, y: -2.06, z: 0}
-  m_LocalScale: {x: 0.271223, y: 0.2611779, z: 1.2363443}
+  m_LocalPosition: {x: 9.79, y: 8.91, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 947594227}
   m_Father: {fileID: 0}
@@ -2693,17 +2689,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143979695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc8d4b96ccf0944b989d009cfc7510b, type: 3}
+  m_Script: {fileID: 11500000, guid: 13547e115374af74892eb4188955d701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigidBody: {fileID: 2143979696}
-  checkGround: {fileID: 947594227}
-  whatIsGround:
+  collisionMask:
     serializedVersion: 2
-    m_Bits: 256
-  isSpinoff: 0
-  cameraM: {fileID: 644176134}
-  maxSpeed: 3
-  groundRadius: 0.1
-  ExchangePoints: 1
-  jumpHeight: 0.5
+    m_Bits: 512
+  horizontalRayCount: 2
+  verticalRayCount: 2
+  horizontalRaySpacing: 0
+  verticalRaySpacing: 0
+  collider: {fileID: 0}
+  playerInput: {x: 0, y: 0}
