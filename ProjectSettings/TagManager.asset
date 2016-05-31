@@ -5,10 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - ExchangePoints
-  - BlueGround
-  - RedGround
-  - DeadGround
+  - Tree
+  - PowerUp
   layers:
   - Default
   - TransparentFX
@@ -18,9 +16,9 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
-  - CollisionLayer
   - Player
+  - CollisionLayer
+  - 
   - 
   - 
   - 

@@ -2,14 +2,15 @@
 using System.Collections;
 
 [RequireComponent (typeof (Controller2D))]
+[RequireComponent (typeof (Rigidbody2D))]
 public class Player : MonoBehaviour {
 
-	public float maxJumpHeight = 4;
-	public float minJumpHeight = 1;
+	public float maxJumpHeight = 1f;
+	public float minJumpHeight = 1f;
 	public float timeToJumpApex = .4f;
 	float accelerationTimeAirborne = .2f;
 	float accelerationTimeGrounded = .1f;
-	public float moveSpeed = 6;
+	public float moveSpeed = 2.5f;
 
 	public Vector2 wallJumpClimb;
 	public Vector2 wallJumpOff;
@@ -26,14 +27,14 @@ public class Player : MonoBehaviour {
 	float velocityXSmoothing;
 
 	Controller2D controller;
+	Rigidbody2D playerRigidBody;
 
 	void Start() {
 		controller = GetComponent<Controller2D> ();
+		playerRigidBody = GetComponent<Rigidbody2D> ();
+		playerRigidBody.isKinematic = true;
 
-		gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
-		maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
-		print ("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
+		CalculateJump();
 	}
 
 	void Update() {
@@ -101,5 +102,23 @@ public class Player : MonoBehaviour {
 			velocity.y = 0;
 		}
 
+	}
+
+	void OnTriggerEnter2D(Collider2D collideObject) {
+		if(collideObject.CompareTag("PowerUp")) {
+			if(collideObject.name == "JumpHigher") {
+				Destroy(collideObject.gameObject);
+				maxJumpHeight += 0.5f;
+				timeToJumpApex = Mathf.Sqrt(2 * maxJumpHeight / Mathf.Abs(gravity));
+				CalculateJump();
+			}
+		}
+	}
+
+	void CalculateJump() {
+		gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
+		maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
+		print ("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
 	}
 }
