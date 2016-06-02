@@ -25,6 +25,8 @@ public class Player : MonoBehaviour {
 	float minJumpVelocity;
 	Vector3 velocity;
 	float velocityXSmoothing;
+	float health = 100;
+	bool checkHealth = true;
 
 	Controller2D controller;
 	Rigidbody2D playerRigidBody;
@@ -105,6 +107,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collideObject) {
+		Debug.Log(collideObject.name);
 		if(collideObject.CompareTag("PowerUp")) {
 			if(collideObject.name == "JumpHigher") {
 				Destroy(collideObject.gameObject);
@@ -120,5 +123,38 @@ public class Player : MonoBehaviour {
 		maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
 		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
 		print ("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
+	}
+
+	void OnCollisionStay2D(Collision2D collideObject) {
+		if(collideObject.gameObject.CompareTag("Enemy")) {
+			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
+				health -= 10;
+				Debug.Log(health);
+				checkHealth = false;
+				StartCoroutine(ReduceHealth(1f));
+			}
+		}
+
+	}
+
+
+
+	//	void OnCollisionEnter2D(Collision2D collideObject) {
+	//		if(collideObject.gameObject.CompareTag("Enemy")) {
+	//			if(collideObject.gameObject.name == "Enemy_Slug") {
+	//				if(checkHealth) {
+	//					health -= 10;
+	//					Debug.Log("Health = " + health);
+	//					OnCollisionStay(collideObject);
+	////					StartCoroutine(ReduceHealth(1f));
+	//					checkHealth = false;
+	//				}
+	//			}
+	//		}
+	//	}
+	//
+	IEnumerator ReduceHealth(float delay) {
+		yield return new WaitForSeconds(delay);
+		checkHealth = true;
 	}
 }
