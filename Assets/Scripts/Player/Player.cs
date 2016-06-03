@@ -134,25 +134,8 @@ public class Player : MonoBehaviour {
 				StartCoroutine(ReduceHealth(1f));
 			}
 		}
-
 	}
 
-
-
-	//	void OnCollisionEnter2D(Collision2D collideObject) {
-	//		if(collideObject.gameObject.CompareTag("Enemy")) {
-	//			if(collideObject.gameObject.name == "Enemy_Slug") {
-	//				if(checkHealth) {
-	//					health -= 10;
-	//					Debug.Log("Health = " + health);
-	//					OnCollisionStay(collideObject);
-	////					StartCoroutine(ReduceHealth(1f));
-	//					checkHealth = false;
-	//				}
-	//			}
-	//		}
-	//	}
-	//
 	IEnumerator ReduceHealth(float delay) {
 		yield return new WaitForSeconds(delay);
 		checkHealth = true;

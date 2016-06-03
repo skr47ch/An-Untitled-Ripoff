@@ -18,10 +18,7 @@ public class Enemy_Slugs : MonoBehaviour {
 		collider2D = GetComponent<BoxCollider2D>();
 
 	}
-
-	void OnCollisionEnter2D(Collision2D collideObject) {
-	}
-
+		
 	void Update() {
 		UpdateRayCastOrigins();
 		rayLength = xSpeed * Time.deltaTime;

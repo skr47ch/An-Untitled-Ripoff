@@ -14,6 +14,7 @@ public class CameraMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		Debug.Log("(" + transform.position.x + " , " + transform.position.y + ")");
 		camerabound = CameraExtensions.OrthographicBounds(thisCamera);
 
 		if(player.transform.position.x > camerabound.max.x) 	MoveCamera(camerabound.size.x, 0);
