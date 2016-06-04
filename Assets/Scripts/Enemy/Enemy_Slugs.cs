@@ -22,7 +22,7 @@ public class Enemy_Slugs : MonoBehaviour {
 	void Update() {
 		UpdateRayCastOrigins();
 		rayLength = xSpeed * Time.deltaTime;
-		Vector2 rayOrigin = (directionX == -1)?raycastOrigins.topLeft:raycastOrigins.topRight;
+		Vector2 rayOrigin = (directionX == -1)?raycastOrigins.bottomLeft:raycastOrigins.bottomRight;
 		RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 		Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength,Color.red);
 		if (hit.fraction > 0) {
