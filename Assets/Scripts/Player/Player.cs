@@ -5,8 +5,8 @@ using System.Collections;
 [RequireComponent (typeof (Rigidbody2D))]
 public class Player : MonoBehaviour {
 
-	public float maxJumpHeight = 1f;
-	public float minJumpHeight = 1f;
+	public float maxJumpHeight = 0.8f;
+	public float minJumpHeight = 0.5f;
 	public float timeToJumpApex = .4f;
 	float accelerationTimeAirborne = .2f;
 	float accelerationTimeGrounded = .1f;
