@@ -16,7 +16,6 @@ public class Enemy_Slugs : MonoBehaviour {
 
 	void Start () {
 		collider2D = GetComponent<BoxCollider2D>();
-
 	}
 		
 	void Update() {
@@ -44,4 +43,8 @@ public class Enemy_Slugs : MonoBehaviour {
 		raycastOrigins.topLeft = new Vector2 (bounds.min.x, bounds.max.y);
 		raycastOrigins.topRight = new Vector2 (bounds.max.x, bounds.max.y);
 	}
+//
+//	void DestroyMe() {
+//		Destroy(transform.gameObject);
+//	}
 }
