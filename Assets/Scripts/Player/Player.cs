@@ -107,7 +107,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collideObject) {
-		Debug.Log(collideObject.name);
+//		Debug.Log(collideObject.name);
 		if(collideObject.CompareTag("PowerUp")) {
 			if(collideObject.name == "JumpHigher") {
 				Destroy(collideObject.gameObject);
@@ -122,11 +122,22 @@ public class Player : MonoBehaviour {
 		gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
 		maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
 		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
-		print ("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
+//		print ("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
 	}
 
-	void OnCollisionStay2D(Collision2D collideObject) {
-		if(collideObject.gameObject.CompareTag("Enemy")) {
+//	void OnCollisionStay2D(Collision2D collideObject) {
+//		if(collideObject.gameObject.CompareTag("Enemy")) {
+//			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
+//				health -= 10;
+//				Debug.Log(health);
+//				checkHealth = false;
+//				StartCoroutine(ReduceHealth(1f));
+//			}
+//		}
+//	}
+
+	void OnTriggerStay2D(Collider2D collideObject) {
+		if(collideObject.CompareTag("Enemy")) {
 			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
 				health -= 10;
 				Debug.Log(health);

@@ -17,16 +17,13 @@ public class EnemyController : MonoBehaviour {
 		Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
 		bool keep = (screenPoint.x > 0) && (screenPoint.y > 0) && (screenPoint.x < 1) && (screenPoint.y < 1);
 
-		if(!keep && spawnedObject != null) {
+		if(!keep) {
 			Destroy(spawnedObject);
 			canSpawn = true;
 		}
-		if(keep && spawnedObject == null && canSpawn) {
+		if(keep && canSpawn) {
 			spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
 			canSpawn = false;
-		}
-		if(!keep) {
-			canSpawn = true;
 		}
 	}
 }
