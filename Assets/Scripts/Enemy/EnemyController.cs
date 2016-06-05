@@ -10,23 +10,23 @@ public class EnemyController : MonoBehaviour {
 
 	void Start () {
 		mainCamera = Camera.main;
-		spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
+		SpawnEnemy();
 	}
 
 	void Update () {
 		Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
 		bool keep = (screenPoint.x > 0) && (screenPoint.y > 0) && (screenPoint.x < 1) && (screenPoint.y < 1);
 
-		if(!keep && spawnedObject != null) {
+		if(!keep) {
 			Destroy(spawnedObject);
 			canSpawn = true;
 		}
-		if(keep && spawnedObject == null && canSpawn) {
-			spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
-			canSpawn = false;
-		}
-		if(!keep) {
-			canSpawn = true;
-		}
+		if(keep && canSpawn) SpawnEnemy();
+	}
+
+	void SpawnEnemy() {
+		spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
+		spawnedObject.name = "Enemy_Slug";
+		canSpawn = false;
 	}
 }
