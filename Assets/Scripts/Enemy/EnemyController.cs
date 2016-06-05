@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour {
 
 	void Start () {
 		mainCamera = Camera.main;
-		spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
+		SpawnEnemy();
 	}
 
 	void Update () {
@@ -21,9 +21,12 @@ public class EnemyController : MonoBehaviour {
 			Destroy(spawnedObject);
 			canSpawn = true;
 		}
-		if(keep && canSpawn) {
-			spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
-			canSpawn = false;
-		}
+		if(keep && canSpawn) SpawnEnemy();
+	}
+
+	void SpawnEnemy() {
+		spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
+		spawnedObject.name = "Enemy_Slug";
+		canSpawn = false;
 	}
 }

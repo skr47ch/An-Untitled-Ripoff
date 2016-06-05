@@ -125,30 +125,22 @@ public class Player : MonoBehaviour {
 //		print ("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
 	}
 
-//	void OnCollisionStay2D(Collision2D collideObject) {
-//		if(collideObject.gameObject.CompareTag("Enemy")) {
-//			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
-//				health -= 10;
-//				Debug.Log(health);
-//				checkHealth = false;
-//				StartCoroutine(ReduceHealth(1f));
-//			}
-//		}
-//	}
-
-	void OnTriggerStay2D(Collider2D collideObject) {
-		if(collideObject.CompareTag("Enemy")) {
+	IEnumerator OnTriggerStay2D(Collider2D collideObject) {
+//		Debug.Log(collideObject);
+		if(collideObject.gameObject.CompareTag("Enemy")) {
 			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
 				health -= 10;
 				Debug.Log(health);
 				checkHealth = false;
-				StartCoroutine(ReduceHealth(1f));
+				yield return new WaitForSeconds(1f);
+				checkHealth = true;
+//				StartCoroutine(ReduceHealth(1f));
 			}
 		}
 	}
 
-	IEnumerator ReduceHealth(float delay) {
-		yield return new WaitForSeconds(delay);
-		checkHealth = true;
-	}
+//	IEnumerator ReduceHealth(float delay) {
+//		yield return new WaitForSeconds(delay);
+//		checkHealth = true;
+//	}
 }

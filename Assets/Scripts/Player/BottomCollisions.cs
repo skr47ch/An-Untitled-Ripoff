@@ -10,7 +10,7 @@ public class BottomCollisions : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collideObject) {
-		if(collideObject.CompareTag("Enemy") && velocity <= 0f) {
+		if(collideObject.CompareTag("Enemy") && velocity <= -0.5f) {
 			Destroy(collideObject.gameObject);
 		}
 	}
