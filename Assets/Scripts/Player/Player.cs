@@ -71,7 +71,7 @@ public class Player : MonoBehaviour {
 
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetButtonDown("Jump")) {
 			if (wallSliding) {
 				if (wallDirX == input.x) {
 					velocity.x = -wallDirX * wallJumpClimb.x;
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour {
 				velocity.y = maxJumpVelocity;
 			}
 		}
-		if (Input.GetKeyUp (KeyCode.Space)) {
+		if (Input.GetButtonUp("Jump")) {
 			if (velocity.y > minJumpVelocity) {
 				velocity.y = minJumpVelocity;
 			}
@@ -98,6 +98,7 @@ public class Player : MonoBehaviour {
 
 
 		velocity.y += gravity * Time.deltaTime;
+		velocity.y = Mathf.Clamp(velocity.y, -3.5f, 6.0f);
 		controller.Move (velocity * Time.deltaTime, input);
 
 		if (controller.collisions.above || controller.collisions.below) {
