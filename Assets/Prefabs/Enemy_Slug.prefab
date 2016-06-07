@@ -13,6 +13,7 @@ GameObject:
   - 61: {fileID: 6148102}
   - 114: {fileID: 11471134}
   - 50: {fileID: 5067590}
+  - 114: {fileID: 11477234}
   m_Layer: 0
   m_Name: Enemy_Slug
   m_TagString: Enemy
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107380}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01322bafd2053374b8ace64da5b1d356, type: 3}
   m_Name: 
@@ -111,6 +112,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   xSpeed: 1.5
+--- !u!114 &11477234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7396b0d1d23655468b8f358baa26920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 512
+  xSpeed: 2.7
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

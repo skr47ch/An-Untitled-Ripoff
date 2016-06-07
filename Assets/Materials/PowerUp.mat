@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: player
+  m_Name: PowerUp
   m_Shader: {fileID: 4800000, guid: cf5fd84d5967d15429b0d90fb61432f4, type: 3}
   m_ShaderKeywords: PIXELSNAP_ON
   m_LightmapFlags: 5
@@ -139,7 +139,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.29315415, g: 0.3316788, b: 0.42413792, a: 0.953}
+        second: {r: 0.6891219, g: 0.1544118, b: 1, a: 1}
       data:
         first:
           name: _AlphaColorKey
