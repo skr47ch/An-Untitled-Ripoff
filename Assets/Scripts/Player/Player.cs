@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
 
 	float maxJumpHeight;
 	public float minJumpHeight = 0.5f;
+	public bool jumpButtonDown, jumpButtonUp;
 
 	float accelerationTimeAirborne = .2f;
 	float accelerationTimeGrounded = .1f;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour {
 	float maxJumpVelocity;
 	float minJumpVelocity;
 	Vector3 velocity;
+	float targetVelocityX;
 	float velocityXSmoothing;
 	float health = 100;
 	bool checkHealth = true;
@@ -45,10 +47,15 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update() {
-		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+		
+		#if UNITY_STANDALONE
+			MoveControl(Input.GetAxisRaw ("Horizontal"));
+			jumpButtonDown = Input.GetButtonDown("Jump");
+			jumpButtonUp = Input.GetButtonUp("Jump");
+		#endif
+
 		int wallDirX = (controller.collisions.left) ? -1 : 1;
 
-		float targetVelocityX = input.x * moveSpeed;
 		velocity.x = Mathf.SmoothDamp (velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
 
 		bool wallSliding = false;
@@ -63,7 +70,7 @@ public class Player : MonoBehaviour {
 				velocityXSmoothing = 0;
 				velocity.x = 0;
 
-				if (input.x != wallDirX && input.x != 0) {
+				if (Mathf.Sign(targetVelocityX) != wallDirX /*&& input.x != 0*/) {
 					timeToWallUnstick -= Time.deltaTime;
 				}
 				else {
@@ -76,13 +83,13 @@ public class Player : MonoBehaviour {
 
 		}
 
-		if (Input.GetButtonDown("Jump")) {
+		if (jumpButtonDown) {
 			if (wallSliding) {
-				if (wallDirX == input.x) {
+				if (wallDirX == Mathf.Sign(targetVelocityX)) {
 					velocity.x = -wallDirX * wallJumpClimb.x;
 					velocity.y = wallJumpClimb.y;
 				}
-				else if (input.x == 0) {
+				else if (Mathf.Sign(targetVelocityX) == 0) {
 					velocity.x = -wallDirX * wallJumpOff.x;
 					velocity.y = wallJumpOff.y;
 				}
@@ -95,21 +102,25 @@ public class Player : MonoBehaviour {
 				velocity.y = maxJumpVelocity;
 			}
 		}
-		if (Input.GetButtonUp("Jump")) {
+		if (jumpButtonUp) {
 			if (velocity.y > minJumpVelocity) {
 				velocity.y = minJumpVelocity;
 			}
 		}
 
-
+//		Debug.Log(velocity.y);
 		velocity.y += gravity * Time.deltaTime;
 		velocity.y = Mathf.Clamp(velocity.y, -3.5f, 6.0f);
-		controller.Move (velocity * Time.deltaTime, input);
+		controller.Move (velocity * Time.deltaTime, new Vector2(Mathf.Sign(targetVelocityX), 0));
 
 		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
 		}
 
+	}
+
+	public void MoveControl(float thisInput) {
+		targetVelocityX = thisInput * moveSpeed;
 	}
 
 	void OnTriggerEnter2D(Collider2D collideObject) {
