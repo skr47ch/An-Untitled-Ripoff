@@ -157,4 +157,12 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnCollisionEnter2D(Collision2D collideObject) {
+		if(collideObject.gameObject.CompareTag("Enemy")) {
+			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
+				Destroy(collideObject.gameObject);
+			}
+		}
+	}
 }
