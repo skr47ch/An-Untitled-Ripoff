@@ -7,7 +7,7 @@ public class Enemy_Slugs : MonoBehaviour {
 	public float xSpeed = 4f;
 	private float tempXCoord;
 
-//	BoxCollider2D collider2D;
+//	public BoxCollider2D collider2D;
 	Renderer rend;
 	RaycastOrigins raycastOrigins;
 
