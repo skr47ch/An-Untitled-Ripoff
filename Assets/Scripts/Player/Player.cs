@@ -31,7 +31,8 @@ public class Player : MonoBehaviour {
 	Vector3 velocity;
 	float targetVelocityX;
 	float velocityXSmoothing;
-	float health = 100;
+	float maxHealth = 100;
+	public float currentHealth;
 	bool checkHealth = true;
 
 	Controller2D controller;
@@ -41,7 +42,7 @@ public class Player : MonoBehaviour {
 		controller = GetComponent<Controller2D> ();
 		playerRigidBody = GetComponent<Rigidbody2D> ();
 		playerRigidBody.isKinematic = true;
-
+		currentHealth = maxHealth;
 		maxJumpHeight = startingJumpHeight;
 		CalculateJump();
 	}
@@ -146,11 +147,12 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator OnTriggerStay2D(Collider2D collideObject) {
-//		Debug.Log(collideObject);
 		if(collideObject.gameObject.CompareTag("Enemy")) {
-			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
-				health -= 10;
-				Debug.Log(health);
+			
+			if(checkHealth && collideObject.gameObject.name == "Enemy_Trigger") {
+				Debug.Log("triggered");
+				currentHealth -= 10;
+				Debug.Log(currentHealth);
 				checkHealth = false;
 				yield return new WaitForSeconds(1f);
 				checkHealth = true;
@@ -158,7 +160,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D collideObject) {
+	void OnCollisionStay2D(Collision2D collideObject) {
 		if(collideObject.gameObject.CompareTag("Enemy")) {
 			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
 				Destroy(collideObject.gameObject);
