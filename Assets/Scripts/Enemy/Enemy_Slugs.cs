@@ -13,25 +13,29 @@ public class Enemy_Slugs : MonoBehaviour {
 
 	int directionX = 1;
 	float rayLength;
+	int numberOfRays = 3;
+	float nextRayDistance;
 	Vector2 velocity;
 
 	void Start () {
 //		collider2D = GetComponent<BoxCollider2D>();
 		rend = GetComponent<Renderer>();
+		UpdateRayCastOrigins();
+		nextRayDistance = raycastOrigins.height / (numberOfRays-1);
 	}
 		
 	void Update() {
 		UpdateRayCastOrigins();
 		rayLength = xSpeed * Time.deltaTime;
 		Vector2 rayOrigin = (directionX == -1)?raycastOrigins.bottomLeft:raycastOrigins.bottomRight;
-		for(int i = 0; i<2; i++) {
+		for(int i = 0; i<numberOfRays; i++) {
 			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 			Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength * 6 ,Color.green);
 			if (hit.fraction > 0) {
 					directionX *= -1;
 					break;
 			}
-			rayOrigin.y += raycastOrigins.height;
+			rayOrigin.y += nextRayDistance;
 		}
 
 		transform.Translate(Vector2.right * directionX * xSpeed * Time.deltaTime);
@@ -55,7 +59,7 @@ public class Enemy_Slugs : MonoBehaviour {
 //		raycastOrigins.bottom = bounds.min.y;
 //		raycastOrigins.left = bounds.min.x;
 //		raycastOrigins.right = bounds.max.x;
-//		raycastOrigins.width = bounds.max.x - bounds.min.x;
+		raycastOrigins.width = bounds.max.x - bounds.min.x;
 		raycastOrigins.height = bounds.max.y - bounds.min.y;
 	}
 }

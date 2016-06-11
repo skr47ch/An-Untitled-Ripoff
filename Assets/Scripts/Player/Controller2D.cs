@@ -10,6 +10,8 @@ public class Controller2D : RayCastController {
 	[HideInInspector]
 	public Vector2 playerInput;
 
+	public GameObject currentCollision;
+
 	public override void Start() {
 		base.Start ();
 		collisions.faceDir = 1;
@@ -112,6 +114,10 @@ public class Controller2D : RayCastController {
 			Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength,Color.red);
 
 			if (hit) {
+				if(hit.fraction >= 0 && mask == collisionMask) {
+					currentCollision = hit.collider.gameObject;
+				}
+
 				if (hit.collider.tag == "Through") {
 					if (directionY == 1 || hit.distance == 0) {
 						continue;
