@@ -38,16 +38,40 @@ public class Player : MonoBehaviour {
 	Controller2D controller;
 	Rigidbody2D playerRigidBody;
 
+	int bossLife;
+
 	void Start() {
 		controller = GetComponent<Controller2D> ();
 		playerRigidBody = GetComponent<Rigidbody2D> ();
 		playerRigidBody.isKinematic = true;
 		currentHealth = maxHealth;
 		maxJumpHeight = startingJumpHeight;
+//		playerRigidBody.gravityScale = 0;
+		bossLife = 3;
 		CalculateJump();
 	}
 
 	void Update() {
+
+		if(controller.currentCollision != null && !controller.currentCollision.CompareTag("Ground")) {
+			Debug.Log(controller.currentCollision.name);
+
+			if(controller.currentCollision != null && controller.currentCollision.CompareTag("Enemy")) {
+				Destroy(controller.currentCollision);
+				controller.currentCollision = null;
+			}
+
+			if(controller.currentCollision != null && controller.currentCollision.CompareTag("Boss")) {
+				if(bossLife < 0) {
+					Destroy(controller.currentCollision);
+					controller.currentCollision = null;	
+				}
+				bossLife -= 1;
+				controller.currentCollision = null;	
+				Debug.Log("Ouch :" + (4-bossLife));
+//				break;
+			}
+		}
 		
 		#if UNITY_STANDALONE
 			MoveControl(Input.GetAxisRaw ("Horizontal"));
@@ -147,12 +171,19 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator OnTriggerStay2D(Collider2D collideObject) {
-		if(collideObject.gameObject.CompareTag("Enemy")) {
+		if(collideObject != null && collideObject.gameObject.CompareTag("Enemy")) {
 			
 			if(checkHealth && collideObject.gameObject.name == "Enemy_Trigger") {
-				Debug.Log("triggered");
 				currentHealth -= 10;
-				Debug.Log(currentHealth);
+				checkHealth = false;
+				yield return new WaitForSeconds(1f);
+				checkHealth = true;
+			}
+		}
+		if(collideObject != null && collideObject.gameObject.CompareTag("Boss")) {
+
+			if(checkHealth && collideObject.gameObject.name == "Boss_Grotto_Trigger") {
+				currentHealth -= 20;
 				checkHealth = false;
 				yield return new WaitForSeconds(1f);
 				checkHealth = true;
@@ -160,10 +191,22 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionStay2D(Collision2D collideObject) {
+	void OnCollisionEnter2D(Collision2D collideObject) {
+		Debug.Log("Collided :" + collideObject.gameObject.name);
 		if(collideObject.gameObject.CompareTag("Enemy")) {
-			if(checkHealth && collideObject.gameObject.name == "Enemy_Slug") {
+			if(collideObject.gameObject.name == "Enemy_Slug") {
 				Destroy(collideObject.gameObject);
+				Debug.Log("Destroyed");
+			}
+		}
+		if(collideObject.gameObject.CompareTag("Boss")) {
+			if(collideObject.gameObject.name == "Boss_Grotto") {
+				bossLife -= 1;
+				Debug.Log(bossLife);
+				if(bossLife <= 0) {
+					Destroy(collideObject.gameObject);
+					Debug.Log("Destroyed");
+				}
 			}
 		}
 	}
