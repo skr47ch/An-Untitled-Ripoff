@@ -28,17 +28,19 @@ public class Player : MonoBehaviour {
 
 	float maxJumpVelocity;
 	float minJumpVelocity;
-	Vector3 velocity;
+	public Vector3 velocity;
 	float targetVelocityX;
 	float velocityXSmoothing;
-	float maxHealth = 100;
+	public float maxHealth = 100;
 	public float currentHealth;
 	bool checkHealth = true;
 
-	Controller2D controller;
+	public Controller2D controller;
 	Rigidbody2D playerRigidBody;
 
 	int bossLife;
+	bool bossCollide = true;
+	GameObject currentCollision;
 
 	void Start() {
 		controller = GetComponent<Controller2D> ();
@@ -52,26 +54,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update() {
-
-		if(controller.currentCollision != null && !controller.currentCollision.CompareTag("Ground")) {
-			Debug.Log(controller.currentCollision.name);
-
-			if(controller.currentCollision != null && controller.currentCollision.CompareTag("Enemy")) {
-				Destroy(controller.currentCollision);
-				controller.currentCollision = null;
-			}
-
-			if(controller.currentCollision != null && controller.currentCollision.CompareTag("Boss")) {
-				if(bossLife < 0) {
-					Destroy(controller.currentCollision);
-					controller.currentCollision = null;	
-				}
-				bossLife -= 1;
-				controller.currentCollision = null;	
-				Debug.Log("Ouch :" + (4-bossLife));
-//				break;
-			}
-		}
 		
 		#if UNITY_STANDALONE
 			MoveControl(Input.GetAxisRaw ("Horizontal"));
@@ -162,6 +144,17 @@ public class Player : MonoBehaviour {
 				CalculateJump();
 			}
 		}
+		if(collideObject.CompareTag("HealthUp")) {
+			if(collideObject.name == "HealthUpgrade") {
+				Destroy(collideObject.gameObject);
+				currentHealth += 10;
+				maxHealth += 10;
+			}
+			if(collideObject.name == "FullHealth") {
+				Destroy(collideObject.gameObject);
+				currentHealth = maxHealth;
+			}
+		}
 	}
 
 	void CalculateJump() {
@@ -170,44 +163,44 @@ public class Player : MonoBehaviour {
 		print ("Gravity: " + gravity + "  Jump Height: " + maxJumpHeight + "  Jump Velocity: " + maxJumpVelocity);
 	}
 
-	IEnumerator OnTriggerStay2D(Collider2D collideObject) {
-		if(collideObject != null && collideObject.gameObject.CompareTag("Enemy")) {
-			
-			if(checkHealth && collideObject.gameObject.name == "Enemy_Trigger") {
-				currentHealth -= 10;
-				checkHealth = false;
-				yield return new WaitForSeconds(1f);
-				checkHealth = true;
-			}
-		}
-		if(collideObject != null && collideObject.gameObject.CompareTag("Boss")) {
+//	IEnumerator OnTriggerStay2D(Collider2D collideObject) {
+//		if(collideObject != null && collideObject.gameObject.CompareTag("Enemy")) {
+//			
+//			if(checkHealth && collideObject.gameObject.name == "Enemy_Trigger") {
+//				currentHealth -= 10;
+//				checkHealth = false;
+//				yield return new WaitForSeconds(1f);
+//				checkHealth = true;
+//			}
+//		}
+//		if(collideObject != null && collideObject.gameObject.CompareTag("Boss")) {
+//
+//			if(checkHealth && collideObject.gameObject.name == "Boss_Grotto_Trigger") {
+//				currentHealth -= 20;
+//				checkHealth = false;
+//				yield return new WaitForSeconds(1f);
+//				checkHealth = true;
+//			}
+//		}
+//	}
 
-			if(checkHealth && collideObject.gameObject.name == "Boss_Grotto_Trigger") {
-				currentHealth -= 20;
-				checkHealth = false;
-				yield return new WaitForSeconds(1f);
-				checkHealth = true;
-			}
-		}
-	}
-
-	void OnCollisionEnter2D(Collision2D collideObject) {
-		Debug.Log("Collided :" + collideObject.gameObject.name);
-		if(collideObject.gameObject.CompareTag("Enemy")) {
-			if(collideObject.gameObject.name == "Enemy_Slug") {
-				Destroy(collideObject.gameObject);
-				Debug.Log("Destroyed");
-			}
-		}
-		if(collideObject.gameObject.CompareTag("Boss")) {
-			if(collideObject.gameObject.name == "Boss_Grotto") {
-				bossLife -= 1;
-				Debug.Log(bossLife);
-				if(bossLife <= 0) {
-					Destroy(collideObject.gameObject);
-					Debug.Log("Destroyed");
-				}
-			}
-		}
-	}
+//	void OnCollisionEnter2D(Collision2D collideObject) {
+//		Debug.Log("Collided :" + collideObject.gameObject.name);
+//		if(collideObject.gameObject.CompareTag("Enemy")) {
+//			if(collideObject.gameObject.name == "Enemy_Slug") {
+//				Destroy(collideObject.gameObject);
+//				Debug.Log("Destroyed");
+//			}
+//		}
+//		if(collideObject.gameObject.CompareTag("Boss")) {
+//			if(collideObject.gameObject.name == "Boss_Grotto") {
+//				bossLife -= 1;
+//				Debug.Log(bossLife);
+//				if(bossLife <= 0) {
+//					Destroy(collideObject.gameObject);
+//					Debug.Log("Destroyed");
+//				}
+//			}
+//		}
+//	}
 }

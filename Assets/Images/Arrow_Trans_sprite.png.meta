@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e99c8e93f0ea5cd42a1f50e356c116d9
-timeCreated: 1465591208
+timeCreated: 1465761808
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -57,12 +57,12 @@ TextureImporter:
     - name: Arrow_Trans_sprite_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 6
+        y: 5
+        width: 20
+        height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -3, y: 14}
@@ -77,12 +77,12 @@ TextureImporter:
     - name: Arrow_Trans_sprite_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
+        x: 35
+        y: 6
+        width: 24
+        height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -4, y: 11}
@@ -97,12 +97,12 @@ TextureImporter:
     - name: Arrow_Trans_sprite_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
+        x: 70
+        y: 3
+        width: 20
+        height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -11, y: 12}
@@ -114,12 +114,12 @@ TextureImporter:
     - name: Arrow_Trans_sprite_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
+        x: 101
+        y: 6
+        width: 24
+        height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -12, y: -4}
