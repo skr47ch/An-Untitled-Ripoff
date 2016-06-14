@@ -8,10 +8,18 @@ public class Player : MonoBehaviour {
 	public float moveSpeed = 2.5f;
 	public float gravity = -10.0f;
 	public float startingJumpHeight = 0.8f;
-	public float jumpHeightAfterUpgrade1 = 1.3f;
-	public float jumpHeightAfterUpgrade2 = 1.6f;
+	public float jumpHeightUpgrade1 = 1.3f;
+	public float jumpHeightUpgrade2 = 1.6f;
+	public float doubleJumpHeightUpgrade1 = 0.5f;
+	public float doubleJumpHeightUpgrade2 = 1.0f;
+//	public bool doubleJumpUpgrade1 = false;
+//	public bool doubleJumpUpgrade2 = false;
+
+	bool doubleJumpEnabled = false;
+	bool canDoubleJumpNow = true;
 
 	float maxJumpHeight;
+	float maxDoubleJumpHeight;
 	public float minJumpHeight = 0.5f;
 	public bool jumpButtonDown, jumpButtonUp;
 
@@ -28,6 +36,7 @@ public class Player : MonoBehaviour {
 
 	float maxJumpVelocity;
 	float minJumpVelocity;
+	float doubleJumpVelocity;
 	public Vector3 velocity;
 	float targetVelocityX;
 	float velocityXSmoothing;
@@ -38,9 +47,9 @@ public class Player : MonoBehaviour {
 	public Controller2D controller;
 	Rigidbody2D playerRigidBody;
 
-	int bossLife;
-	bool bossCollide = true;
-	GameObject currentCollision;
+//	int bossLife;
+//	bool bossCollide = true;
+//	GameObject currentCollision;
 
 	void Start() {
 		controller = GetComponent<Controller2D> ();
@@ -48,8 +57,8 @@ public class Player : MonoBehaviour {
 		playerRigidBody.isKinematic = true;
 		currentHealth = maxHealth;
 		maxJumpHeight = startingJumpHeight;
-//		playerRigidBody.gravityScale = 0;
-		bossLife = 3;
+//		maxDoubleJumpHeight = 0f;
+//		bossLife = 3;
 		CalculateJump();
 	}
 
@@ -106,7 +115,14 @@ public class Player : MonoBehaviour {
 				}
 			}
 			if (controller.collisions.below) {
+				Debug.Log("Jump1");
 				velocity.y = maxJumpVelocity;
+//				canDoubleJumpNow = true;
+			}
+			else if (doubleJumpEnabled && canDoubleJumpNow) {
+				Debug.Log("Jump2");
+				velocity.y = doubleJumpVelocity;
+				canDoubleJumpNow = false;
 			}
 		}
 		if (jumpButtonUp) {
@@ -122,6 +138,7 @@ public class Player : MonoBehaviour {
 
 		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
+			canDoubleJumpNow = true;
 		}
 
 	}
@@ -135,14 +152,23 @@ public class Player : MonoBehaviour {
 		if(collideObject.CompareTag("PowerUp")) {
 			if(collideObject.name == "JumpUpgrade2") {
 				Destroy(collideObject.gameObject);
-				maxJumpHeight = (maxJumpHeight < jumpHeightAfterUpgrade2) ? jumpHeightAfterUpgrade2 : maxJumpHeight;
-				CalculateJump();
+				maxJumpHeight = (maxJumpHeight < jumpHeightUpgrade2) ? jumpHeightUpgrade2 : maxJumpHeight;
 			}
 			else if(collideObject.name == "JumpUpgrade1") {
 				Destroy(collideObject.gameObject);
-				maxJumpHeight = (maxJumpHeight < jumpHeightAfterUpgrade1) ? jumpHeightAfterUpgrade1 : maxJumpHeight;
-				CalculateJump();
+				maxJumpHeight = (maxJumpHeight < jumpHeightUpgrade1) ? jumpHeightUpgrade1 : maxJumpHeight;
 			}
+			else if(collideObject.name == "DoubleJumpUpgrade1") {
+				doubleJumpEnabled = true;
+				Destroy(collideObject.gameObject);
+				maxDoubleJumpHeight = (maxDoubleJumpHeight < doubleJumpHeightUpgrade1) ? doubleJumpHeightUpgrade1 : maxDoubleJumpHeight;
+			}
+			else if(collideObject.name == "DoubleJumpUpgrade2") {
+				doubleJumpEnabled = true;
+				Destroy(collideObject.gameObject);
+				maxDoubleJumpHeight = (maxDoubleJumpHeight < doubleJumpHeightUpgrade2) ? doubleJumpHeightUpgrade2 : maxDoubleJumpHeight;
+			}
+			CalculateJump();
 		}
 		if(collideObject.CompareTag("HealthUp")) {
 			if(collideObject.name == "HealthUpgrade") {
@@ -160,7 +186,14 @@ public class Player : MonoBehaviour {
 	void CalculateJump() {
 		maxJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * maxJumpHeight);
 		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
-		print ("Gravity: " + gravity + "  Jump Height: " + maxJumpHeight + "  Jump Velocity: " + maxJumpVelocity);
+
+		doubleJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs (gravity) * maxDoubleJumpHeight);
+
+		print ("Gravity: " + gravity + 
+				", Jump1 Height: " + maxJumpHeight + 
+				", Jump1 Velocity: " + maxJumpVelocity + 
+				", Jump2 Height: " + maxDoubleJumpHeight + 
+				", Jump2 Velocity: " + doubleJumpVelocity);
 	}
 
 //	IEnumerator OnTriggerStay2D(Collider2D collideObject) {
