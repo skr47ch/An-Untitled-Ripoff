@@ -7,13 +7,30 @@ public class Player : MonoBehaviour {
 
 	public float moveSpeed = 2.5f;
 	public float gravity = -10.0f;
+
 	public float startingJumpHeight = 0.8f;
-	public float jumpHeightAfterUpgrade1 = 1.3f;
-	public float jumpHeightAfterUpgrade2 = 1.6f;
+	public float jumpHeightUpgrade1 = 1.3f;
+	public float jumpHeightUpgrade2 = 1.6f;
+	public float doubleJumpHeightUpgrade1 = 0.5f;
+	public float doubleJumpHeightUpgrade2 = 1.0f;
+	public float minJumpHeightOnAttack = 0.5f;
+	public float maxJumpHeightOnAttack = 1.0f;
 
 	float maxJumpHeight;
+	float maxDoubleJumpHeight;
 	public float minJumpHeight = 0.5f;
-	public bool jumpButtonDown, jumpButtonUp;
+
+	public bool jumpButtonDown;
+	public bool jumpButtonUp;
+	public bool jumpButtonPressed;
+	bool doubleJumpEnabled = false;
+	bool canDoubleJumpNow = true;
+
+	float maxJumpVelocity;
+	float minJumpVelocity;
+	public float maxDoubleJumpVelocity;
+	public float minOnAttackJumpVelocity;
+	public float maxOnAttackJumpVelocity;
 
 	float accelerationTimeAirborne = .2f;
 	float accelerationTimeGrounded = .1f;
@@ -26,21 +43,14 @@ public class Player : MonoBehaviour {
 	public float wallStickTime = .25f;
 	float timeToWallUnstick;
 
-	float maxJumpVelocity;
-	float minJumpVelocity;
 	public Vector3 velocity;
 	float targetVelocityX;
 	float velocityXSmoothing;
 	public float maxHealth = 100;
 	public float currentHealth;
-	bool checkHealth = true;
 
 	public Controller2D controller;
 	Rigidbody2D playerRigidBody;
-
-	int bossLife;
-	bool bossCollide = true;
-	GameObject currentCollision;
 
 	void Start() {
 		controller = GetComponent<Controller2D> ();
@@ -48,8 +58,6 @@ public class Player : MonoBehaviour {
 		playerRigidBody.isKinematic = true;
 		currentHealth = maxHealth;
 		maxJumpHeight = startingJumpHeight;
-//		playerRigidBody.gravityScale = 0;
-		bossLife = 3;
 		CalculateJump();
 	}
 
@@ -58,6 +66,7 @@ public class Player : MonoBehaviour {
 		#if UNITY_STANDALONE
 			MoveControl(Input.GetAxisRaw ("Horizontal"));
 			jumpButtonDown = Input.GetButtonDown("Jump");
+			jumpButtonPressed = Input.GetButton("Jump");
 			jumpButtonUp = Input.GetButtonUp("Jump");
 		#endif
 
@@ -106,7 +115,14 @@ public class Player : MonoBehaviour {
 				}
 			}
 			if (controller.collisions.below) {
+				Debug.Log("Jump1");
 				velocity.y = maxJumpVelocity;
+//				canDoubleJumpNow = true;
+			}
+			else if (doubleJumpEnabled && canDoubleJumpNow) {
+				Debug.Log("Jump2");
+				velocity.y = maxDoubleJumpVelocity;
+				canDoubleJumpNow = false;
 			}
 		}
 		if (jumpButtonUp) {
@@ -122,6 +138,7 @@ public class Player : MonoBehaviour {
 
 		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
+			canDoubleJumpNow = true;
 		}
 
 	}
@@ -135,14 +152,23 @@ public class Player : MonoBehaviour {
 		if(collideObject.CompareTag("PowerUp")) {
 			if(collideObject.name == "JumpUpgrade2") {
 				Destroy(collideObject.gameObject);
-				maxJumpHeight = (maxJumpHeight < jumpHeightAfterUpgrade2) ? jumpHeightAfterUpgrade2 : maxJumpHeight;
-				CalculateJump();
+				maxJumpHeight = (maxJumpHeight < jumpHeightUpgrade2) ? jumpHeightUpgrade2 : maxJumpHeight;
 			}
 			else if(collideObject.name == "JumpUpgrade1") {
 				Destroy(collideObject.gameObject);
-				maxJumpHeight = (maxJumpHeight < jumpHeightAfterUpgrade1) ? jumpHeightAfterUpgrade1 : maxJumpHeight;
-				CalculateJump();
+				maxJumpHeight = (maxJumpHeight < jumpHeightUpgrade1) ? jumpHeightUpgrade1 : maxJumpHeight;
 			}
+			else if(collideObject.name == "DoubleJumpUpgrade1") {
+				doubleJumpEnabled = true;
+				Destroy(collideObject.gameObject);
+				maxDoubleJumpHeight = (maxDoubleJumpHeight < doubleJumpHeightUpgrade1) ? doubleJumpHeightUpgrade1 : maxDoubleJumpHeight;
+			}
+			else if(collideObject.name == "DoubleJumpUpgrade2") {
+				doubleJumpEnabled = true;
+				Destroy(collideObject.gameObject);
+				maxDoubleJumpHeight = (maxDoubleJumpHeight < doubleJumpHeightUpgrade2) ? doubleJumpHeightUpgrade2 : maxDoubleJumpHeight;
+			}
+			CalculateJump();
 		}
 		if(collideObject.CompareTag("HealthUp")) {
 			if(collideObject.name == "HealthUpgrade") {
@@ -160,47 +186,16 @@ public class Player : MonoBehaviour {
 	void CalculateJump() {
 		maxJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * maxJumpHeight);
 		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
-		print ("Gravity: " + gravity + "  Jump Height: " + maxJumpHeight + "  Jump Velocity: " + maxJumpVelocity);
+
+		maxDoubleJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs (gravity) * maxDoubleJumpHeight);
+
+		maxOnAttackJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * maxJumpHeightOnAttack);
+		minOnAttackJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeightOnAttack);
+
+		print ("Gravity: " + gravity + 
+				", Jump1 Height: " + maxJumpHeight + 
+				", Jump1 Velocity: " + maxJumpVelocity + 
+				", Jump2 Height: " + maxDoubleJumpHeight + 
+				", Jump2 Velocity: " + maxDoubleJumpVelocity);
 	}
-
-//	IEnumerator OnTriggerStay2D(Collider2D collideObject) {
-//		if(collideObject != null && collideObject.gameObject.CompareTag("Enemy")) {
-//			
-//			if(checkHealth && collideObject.gameObject.name == "Enemy_Trigger") {
-//				currentHealth -= 10;
-//				checkHealth = false;
-//				yield return new WaitForSeconds(1f);
-//				checkHealth = true;
-//			}
-//		}
-//		if(collideObject != null && collideObject.gameObject.CompareTag("Boss")) {
-//
-//			if(checkHealth && collideObject.gameObject.name == "Boss_Grotto_Trigger") {
-//				currentHealth -= 20;
-//				checkHealth = false;
-//				yield return new WaitForSeconds(1f);
-//				checkHealth = true;
-//			}
-//		}
-//	}
-
-//	void OnCollisionEnter2D(Collision2D collideObject) {
-//		Debug.Log("Collided :" + collideObject.gameObject.name);
-//		if(collideObject.gameObject.CompareTag("Enemy")) {
-//			if(collideObject.gameObject.name == "Enemy_Slug") {
-//				Destroy(collideObject.gameObject);
-//				Debug.Log("Destroyed");
-//			}
-//		}
-//		if(collideObject.gameObject.CompareTag("Boss")) {
-//			if(collideObject.gameObject.name == "Boss_Grotto") {
-//				bossLife -= 1;
-//				Debug.Log(bossLife);
-//				if(bossLife <= 0) {
-//					Destroy(collideObject.gameObject);
-//					Debug.Log("Destroyed");
-//				}
-//			}
-//		}
-//	}
 }
