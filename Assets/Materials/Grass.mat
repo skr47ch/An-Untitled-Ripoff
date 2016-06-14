@@ -139,7 +139,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.65215737, g: 0.93448275, b: 0.061840773, a: 1}
+        second: {r: 0.19730063, g: 0.759, b: 0.10045589, a: 1}
       data:
         first:
           name: _AlphaColorKey

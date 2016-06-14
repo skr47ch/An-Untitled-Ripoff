@@ -78,13 +78,19 @@ public class EnemyController : MonoBehaviour {
 				pBottom = player.controller.raycastOrigins.bottom;
 			}
 
-			if((sLeft <= pLeft || sLeft <= pRight) && (sRight >= pLeft || sRight >= pRight)){
-				if(sTop >= pBottom && sTop <= pTop && player.velocity.y < 0) {
-					if(slug) Destroy(spawnedObject);
-					if(bossGrotto && damageBoss) StartCoroutine (ReduceBossLife(2f));
-				}
-				else if((sBottom <= pBottom || sBottom <= pTop) && (sTop >= pBottom || sTop >= pTop)) {
-					if(damagePlayer) StartCoroutine (DecreaseHealthAfter(1f));
+			if(damagePlayer) {
+				if((sLeft <= pLeft || sLeft <= pRight) && (sRight >= pLeft || sRight >= pRight)){
+					if(sTop >= pBottom && sTop <= pTop && player.velocity.y < 0) {
+
+						if(player.jumpButtonPressed) player.velocity.y = player.maxOnAttackJumpVelocity;
+						else player.velocity.y = player.minOnAttackJumpVelocity;
+
+						if(slug) Destroy(spawnedObject);
+						if(bossGrotto && damageBoss) StartCoroutine (ReduceBossLife());
+					}
+					else if((sBottom <= pBottom || sBottom <= pTop) && (sTop >= pBottom || sTop >= pTop)) {
+						if(damagePlayer) StartCoroutine (DecreaseHealthAfter(1f));
+					}
 				}
 			}
 		}
@@ -97,17 +103,20 @@ public class EnemyController : MonoBehaviour {
 		damagePlayer = true;
 	}
 
-	IEnumerator ReduceBossLife(float delay) {
+	IEnumerator ReduceBossLife() {
 		damageBoss = false;
+		damagePlayer = false;
+
 		if(bossGrotto.bossLives < 1) {
 			Destroy(spawnedObject);
 			dead = true;
 		}
-		bossGrotto.bossLives -= 1;
-		Debug.Log ("Boss Lives" + (bossGrotto.bossLives + 1));
-		yield return new WaitForSeconds(delay);
-		damageBoss = true;
+		else bossGrotto.bossLives -= 1;
 
-		
+		yield return new WaitForSeconds(1f);
+		damagePlayer = true;
+
+		yield return new WaitForSeconds(1f);
+		damageBoss = true;
 	}
 }
