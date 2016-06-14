@@ -10,7 +10,6 @@ public class Boss_Grotto : MonoBehaviour {
 	float ySpeed;
 	float xSpeed;
 	private float tempYCoord;
-	float gravity = -10f;
 	
 	Renderer rend;
 	public RaycastOrigins raycastOrigins;
@@ -25,9 +24,9 @@ public class Boss_Grotto : MonoBehaviour {
 
 	bool moveTime = false;
 	bool checkPlayer;
-	public int bossLives = 4;
+	public int bossLives = 3;
 
-	public float raduisToCheck = 5f;
+	public float raduisToCheck = 3f;
 
 	void Start () {
 		rend = GetComponent<Renderer>();
