@@ -84,9 +84,15 @@ public class Boss_Grotto : MonoBehaviour {
 		Collider2D hitCollider = Physics2D.OverlapCircle(transform.position, radius);
 
 		if(hitCollider.CompareTag("Player")) {
-			moveTime = true;
+//			moveTime = true;
 			checkPlayer = false;
+			StartCoroutine(BeginBoss());
 		}
+	}
+
+	IEnumerator BeginBoss() {
+		yield return new WaitForSeconds(2f);
+		moveTime = true;
 	}
 
 	void BossMove() {
