@@ -11,6 +11,8 @@ TagManager:
   - RedGround
   - Boss
   - HealthUp
+  - Fire
+  - BackFire
   layers:
   - Default
   - TransparentFX

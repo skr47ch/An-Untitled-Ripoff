@@ -10436,9 +10436,12 @@ MonoBehaviour:
   pos2: {fileID: 926076669}
   pos3: {fileID: 1469603040}
   pos4: {fileID: 488654821}
-  moveInterval: 5
+  moveInterval: 6
+  fireInterval: 2.5
   initialWait: 2
   raduisToCheck: 4
+  firePrefab: {fileID: 450630, guid: f4e3a253ba0d3c9418742f27ecf9b2d0, type: 2}
+  BossFirePrefab: {fileID: 450630, guid: 812a55f3ad10a264d8ab8c707a2cdda9, type: 2}
 --- !u!1 &1160369705
 GameObject:
   m_ObjectHideFlags: 0
@@ -11488,7 +11491,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 443590, guid: e7dfd619c5dc59647bdf1a1af46828be, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2336996, guid: e7dfd619c5dc59647bdf1a1af46828be, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -20357,11 +20360,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2143979695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.82, y: 12.33, z: -1}
+  m_LocalPosition: {x: -22.15, y: 12.27, z: -1}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!61 &2143979700
 BoxCollider2D:
   m_ObjectHideFlags: 0
