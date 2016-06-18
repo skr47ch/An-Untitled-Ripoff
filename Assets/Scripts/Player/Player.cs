@@ -148,7 +148,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collideObject) {
-//		Debug.Log(collideObject.name);
 		if(collideObject.CompareTag("PowerUp")) {
 			if(collideObject.name == "JumpUpgrade2") {
 				Destroy(collideObject.gameObject);
@@ -180,6 +179,15 @@ public class Player : MonoBehaviour {
 				Destroy(collideObject.gameObject);
 				currentHealth = maxHealth;
 			}
+		}
+		if(collideObject.CompareTag("Fire")) {
+			Destroy(collideObject.gameObject);
+			currentHealth -= 10;
+		}
+		if(collideObject.CompareTag("BackFire")) {
+			Fire fire = GameObject.FindGameObjectWithTag("BackFire").GetComponent<Fire>();
+			fire.speed *= -1;
+			fire.resetTime = true;
 		}
 	}
 

@@ -62,7 +62,7 @@ public class Boss_Grotto : MonoBehaviour {
 		if(checkPlayer) CheckIfPlayerIsNear(raduisToCheck);
 		if(moveTime) {
 			BossMove();
-			StartCoroutine(trackMoveTime(6f));
+			StartCoroutine(TrackMoveTime(6f));
 		}
 
 	}
@@ -74,7 +74,7 @@ public class Boss_Grotto : MonoBehaviour {
 		public float width, height;
 	}
 
-	IEnumerator trackMoveTime(float delay) {
+	IEnumerator TrackMoveTime(float delay) {
 		moveTime = false;
 		yield return new WaitForSeconds(delay);
 		moveTime = true;
@@ -84,7 +84,6 @@ public class Boss_Grotto : MonoBehaviour {
 		Collider2D hitCollider = Physics2D.OverlapCircle(transform.position, radius);
 
 		if(hitCollider.CompareTag("Player")) {
-//			moveTime = true;
 			checkPlayer = false;
 			StartCoroutine(BeginBoss());
 		}
