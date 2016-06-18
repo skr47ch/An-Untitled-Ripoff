@@ -124,6 +124,9 @@ public class Player : MonoBehaviour {
 				velocity.y = maxDoubleJumpVelocity;
 				canDoubleJumpNow = false;
 			}
+			#if !UNITY_STANDALONE
+				jumpButtonDown = false;
+			#endif
 		}
 		if (jumpButtonUp) {
 			if (velocity.y > minJumpVelocity) {
