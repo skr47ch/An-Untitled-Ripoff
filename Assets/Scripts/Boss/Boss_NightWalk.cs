@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Boss_NightWalk : MonoBehaviour {
 
-	public Transform pos1, pos2, pos3, pos4;
+	Transform pos1, pos2, pos3, pos4;
 
 	float xDistance = 0.5f;
 	Vector2 newPosition;
@@ -11,6 +11,9 @@ public class Boss_NightWalk : MonoBehaviour {
 	bool cannonTime = false;
 	bool checkPlayer = true;
 	bool fireBlue = false;
+
+	public int bossLives = 4;
+
 
 	public float moveInterval = 4.0f;
 	public float fireInterval = 2.0f;
@@ -23,6 +26,10 @@ public class Boss_NightWalk : MonoBehaviour {
 	int newBossRand;
 
 	void Start () {
+		pos1 = GameObject.Find("Boss/BossNightWalk/Boss_NightWalk_position1").transform;
+		pos2 = GameObject.Find("Boss/BossNightWalk/Boss_NightWalk_position2").transform;
+		pos3 = GameObject.Find("Boss/BossNightWalk/Boss_NightWalk_position3").transform;
+		pos4 = GameObject.Find("Boss/BossNightWalk/Boss_NightWalk_position4").transform;
 		transform.position = RandomPosition();
 	}
 	
@@ -58,7 +65,7 @@ public class Boss_NightWalk : MonoBehaviour {
 				rand[2] = Random.Range(1, 5);
 			}
 		}
-		Debug.Log(rand[0] + ", " + rand[1]);
+
 		for(int i = 0; i < num ; i++) {
 			Object prefab;
 
@@ -92,6 +99,8 @@ public class Boss_NightWalk : MonoBehaviour {
 		moveTime = false;
 		yield return new WaitForSeconds(delay);
 		moveTime = true;
+		yield return new WaitForSeconds(1f);
+		fireBlue = true;
 	}
 
 	void CheckIfPlayerIsNear(float radius) {
@@ -99,7 +108,6 @@ public class Boss_NightWalk : MonoBehaviour {
 
 		if(hitCollider.CompareTag("Player")) {
 			checkPlayer = false;
-			Debug.Log("Player Found");
 			StartCoroutine(BeginBoss());
 		}
 	}
@@ -130,8 +138,16 @@ public class Boss_NightWalk : MonoBehaviour {
 			newPosition = pos2.position;
 			break;
 		}
-		fireBlue = true;
 		newPosition.x += xDistance;
 		return newPosition;
+	}
+
+	void OnTriggerEnter2D (Collider2D collider) {
+		if(collider.CompareTag("BackFire")) {
+			Destroy(collider.gameObject);
+			if(bossLives >= 1) {
+				bossLives -= 1;
+			}
+		}
 	}
 }

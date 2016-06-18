@@ -24,7 +24,7 @@ public class Boss_Grotto : MonoBehaviour {
 
 	bool moveTime = false;
 	bool checkPlayer;
-	public int bossLives = 3;
+	public int bossLives = 4;
 
 	public float raduisToCheck = 3f;
 

@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour {
 	Player player;
 	Enemy_Slugs slug;
 	Boss_Grotto bossGrotto;
+	Boss_NightWalk bossNightWalk;
 
 	bool canSpawn = false;
 	bool damagePlayer = true;
@@ -23,6 +24,7 @@ public class EnemyController : MonoBehaviour {
 
 	void Update () {
 
+		CheckIfBossDead();
 		CheckPlayerCollision();
 
 		Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
@@ -35,12 +37,37 @@ public class EnemyController : MonoBehaviour {
 		if(keep && canSpawn && !dead) SpawnEnemy();
 	}
 
-	void SpawnEnemy() {
-		if(transform.name == "BossGrotto") {
-			spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
-			spawnedObject.name = "Boss_Grotto";
-			bossGrotto = spawnedObject.GetComponent<Boss_Grotto>();
+	void CheckIfBossDead() {
+		if(spawnedObject) {
+			if(spawnedObject.name == "Boss_Grotto") {
+				if(bossGrotto.bossLives < 1) {
+					Destroy(spawnedObject);
+					dead = true;
+				}
+			}
+			else if(spawnedObject.name == "Boss_NightWalk") {
+				if(bossNightWalk.bossLives < 1) {
+					Destroy(spawnedObject);
+					dead = true;
+				}
+			}
 		}
+	}
+
+	void SpawnEnemy() {
+		if(transform.tag == "Boss") {
+			if(transform.name == "BossGrotto") {
+				spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
+				spawnedObject.name = "Boss_Grotto";
+				bossGrotto = spawnedObject.GetComponent<Boss_Grotto>();
+			}
+			else if(transform.name == "BossNightWalk") {
+				spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
+				spawnedObject.name = "Boss_NightWalk";
+				bossNightWalk = spawnedObject.GetComponent<Boss_NightWalk>();
+			}
+		}
+
 		if(transform.name == "Slug") {
 			spawnedObject = (GameObject) Instantiate(enemyPrefab, transform.position, transform.rotation);
 			spawnedObject.name = "Enemy_Slug";
@@ -56,15 +83,12 @@ public class EnemyController : MonoBehaviour {
 
 		if(spawnedObject) {
 			if(spawnedObject.name == "Enemy_Slug") {
-
 				sLeft = slug.raycastOrigins.left;
 				sRight = slug.raycastOrigins.right;
 				sTop = slug.raycastOrigins.top;
 				sBottom = slug.raycastOrigins.bottom;
 			}
-
-			if(spawnedObject.name == "Boss_Grotto") {
-
+			else if(spawnedObject.name == "Boss_Grotto") {
 				sLeft = bossGrotto.raycastOrigins.left;
 				sRight = bossGrotto.raycastOrigins.right;
 				sTop = bossGrotto.raycastOrigins.top;
@@ -107,11 +131,8 @@ public class EnemyController : MonoBehaviour {
 		damageBoss = false;
 		damagePlayer = false;
 
-		if(bossGrotto.bossLives < 1) {
-			Destroy(spawnedObject);
-			dead = true;
-		}
-		else bossGrotto.bossLives -= 1;
+
+		if(bossGrotto.bossLives >= 1) bossGrotto.bossLives -= 1;
 
 		yield return new WaitForSeconds(1f);
 		damagePlayer = true;

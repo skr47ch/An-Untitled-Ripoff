@@ -1,48 +1,47 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &190288
+--- !u!1 &105104
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 450630}
-  - 33: {fileID: 3387692}
-  - 23: {fileID: 2387058}
-  - 114: {fileID: 11452372}
-  - 61: {fileID: 6153162}
-  - 50: {fileID: 5028410}
+  - 4: {fileID: 494374}
+  - 33: {fileID: 3349956}
+  - 23: {fileID: 2320060}
+  - 114: {fileID: 11426674}
+  - 61: {fileID: 6151604}
   m_Layer: 0
-  m_Name: Fire
-  m_TagString: Fire
+  m_Name: Boss_NightWalk
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &450630
+--- !u!4 &494374
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190288}
+  m_GameObject: {fileID: 105104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.29, y: 12.060499, z: 0}
-  m_LocalScale: {x: 0.2823705, y: 0.2823705, z: 0.2823705}
+  m_LocalPosition: {x: -0.14, y: -0.40000057, z: 0}
+  m_LocalScale: {x: 0.2702418, y: 0.2702418, z: 0.2702418}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2387058
+--- !u!23 &2320060
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190288}
+  m_GameObject: {fileID: 105104}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 12342063b248b9e40ba228ac27f2fe93, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -58,36 +57,19 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3387692
+--- !u!33 &3349956
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190288}
+  m_GameObject: {fileID: 105104}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &5028410
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190288}
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!61 &6153162
+--- !u!61 &6151604
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190288}
+  m_GameObject: {fileID: 105104}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -96,21 +78,23 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
---- !u!114 &11452372
+--- !u!114 &11426674
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190288}
+  m_GameObject: {fileID: 105104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66154dcddbf7d4247a1ba241d31aca19, type: 3}
+  m_Script: {fileID: 11500000, guid: 82e0f23c85ff223409a6ea01271aa06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
-  direction: -1
-  lifeTime: 1.8
-  resetTime: 0
+  moveInterval: 6
+  fireInterval: 2.5
+  initialWait: 2
+  raduisToCheck: 4
+  firePrefab: {fileID: 450630, guid: f4e3a253ba0d3c9418742f27ecf9b2d0, type: 2}
+  BossFirePrefab: {fileID: 450630, guid: 812a55f3ad10a264d8ab8c707a2cdda9, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -120,5 +104,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 190288}
+  m_RootGameObject: {fileID: 105104}
   m_IsPrefabParent: 1
