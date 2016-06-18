@@ -26,10 +26,12 @@ public class TouchController : MonoBehaviour {
 	}
 
 	public void JumpButton() {
+		player.jumpButtonPressed = true;
 		player.jumpButtonDown = true;
 		player.jumpButtonUp = false;
 //		Debug.Log("Jump");
 	}
+
 
 	public void JumpReleaseButton() {
 		player.jumpButtonUp = true;
