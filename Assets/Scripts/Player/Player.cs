@@ -180,15 +180,6 @@ public class Player : MonoBehaviour {
 				currentHealth = maxHealth;
 			}
 		}
-		if(collideObject.CompareTag("Fire")) {
-			Destroy(collideObject.gameObject);
-			currentHealth -= 10;
-		}
-		if(collideObject.CompareTag("BackFire")) {
-			Fire fire = GameObject.FindGameObjectWithTag("BackFire").GetComponent<Fire>();
-			fire.speed *= -1;
-			fire.resetTime = true;
-		}
 	}
 
 	void CalculateJump() {
